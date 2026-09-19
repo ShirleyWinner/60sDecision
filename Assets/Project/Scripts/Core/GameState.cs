@@ -1,18 +1,19 @@
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public enum GameState
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    Idle,
+    ScenarioIntro,
+    Playing,
+    OutcomeReveal,
+    Debrief
+}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+public enum OutcomeType
+{
+    CorrectDecision,
+    IncorrectDecision,
+    TimeOut
 }
