@@ -95,7 +95,7 @@ export function Game() {
             inert={sheetOpen}
             onStart={() => {
               audio?.cue('tap');
-              dispatch({ type: 'start' });
+              dispatch({ type: 'start', at: Date.now() });
             }}
           />
         );
@@ -106,7 +106,7 @@ export function Game() {
             inert={sheetOpen}
             onConsult={() => {
               audio?.cue('tap');
-              dispatch({ type: 'consult' });
+              dispatch({ type: 'consult', at: Date.now() });
             }}
           />
         );
@@ -123,7 +123,7 @@ export function Game() {
             onStep={stepAdvisor}
             onSelect={(index) => {
               audio?.cue('link');
-              dispatch({ type: 'selectAgent', index });
+              dispatch({ type: 'selectAgent', index, at: Date.now() });
             }}
           />
         );
@@ -143,7 +143,12 @@ export function Game() {
             }}
             onAnswer={(trust) => {
               audio?.cue(trust ? 'trust' : 'reject');
-              dispatch({ type: 'answer', trust });
+              dispatch({
+                type: 'answer',
+                trust,
+                advice: agent.advice[state.index],
+                at: Date.now(),
+              });
             }}
           />
         );
@@ -156,7 +161,7 @@ export function Game() {
             agent={agent}
             onChoose={(index) => {
               audio?.cue('tap');
-              dispatch({ type: 'chooseRoute', index });
+              dispatch({ type: 'chooseRoute', index, at: Date.now() });
             }}
           />
         );
@@ -179,7 +184,6 @@ export function Game() {
           <DebriefScreen
             inert={sheetOpen}
             state={state}
-            agent={agent}
             onReview={() => {
               audio?.cue('tap');
               setReviewOpen(true);

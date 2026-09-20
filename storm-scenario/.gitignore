@@ -1,7 +1,12 @@
 node_modules/
 .next/
 out/
+dist/
 .venv/
 __pycache__/
 *.tsbuildinfo
 next-env.d.ts
+
+# Secrets
+.env
+.env*.local

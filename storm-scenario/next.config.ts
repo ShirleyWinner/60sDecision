@@ -1,14 +1,10 @@
 import type { NextConfig } from 'next';
 
 /**
- * The game is entirely client-side, so it ships as a static export.
- * `next build` writes `out/`; the `build` script copies that to `dist/`,
- * which is the directory any static file server should be pointed at.
+ * The debrief calls OpenRouter from a server route so the API key never
+ * reaches the browser, so this is a normal Node-backed Next app rather than
+ * a static export. Run it with `next dev`, or `next build && next start`.
  */
-const nextConfig: NextConfig = {
-  output: 'export',
-  images: { unoptimized: true },
-  trailingSlash: true,
-};
+const nextConfig: NextConfig = {};
 
 export default nextConfig;

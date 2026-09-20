@@ -5,9 +5,8 @@
   "description": "60s Decisions \u2014 Storm Corridor: a naval decision simulation about calibrating trust in AI advice.",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && rm -rf dist && cp -r out dist",
+    "build": "next build",
     "start": "next start",
-    "serve": "npx --yes serve dist -l 8765",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },

@@ -4,6 +4,28 @@ import type { OutcomeId, ScreenId } from '@/data/types';
 
 export const EVIDENCE_COUNT = evidence.length;
 
+/** One judged clue, recorded as the player makes it. */
+export interface EvidenceStep {
+  index: number;
+  /** The player's call. */
+  trust: boolean;
+  /** What the linked advisor recommended. */
+  advice: boolean;
+  /** Ground truth for the clue. */
+  truth: boolean;
+  /** Whether the player opened the source record for this clue. */
+  inspectedSource: boolean;
+  /** Milliseconds spent on this clue. */
+  ms: number;
+}
+
+/** The final routing order. */
+export interface DecisionStep {
+  routeIndex: number;
+  /** Milliseconds spent on the decision screen. */
+  ms: number;
+}
+
 export interface GameState {
   screen: ScreenId;
   /** Index into `agents`, or null before an advisor is linked. */
@@ -17,16 +39,22 @@ export interface GameState {
   /** Index into `routes`, or null before the final order. */
   decision: number | null;
   outcome: OutcomeId | null;
+  /** Phase 4 trajectory, one entry per judged clue. */
+  steps: EvidenceStep[];
+  /** Phase 5 trajectory. */
+  decisionStep: DecisionStep | null;
+  /** Timestamp the current step began, for deliberation timing. */
+  stepStartedAt: number | null;
 }
 
 export type GameAction =
   | { type: 'reset' }
-  | { type: 'start' }
-  | { type: 'consult' }
-  | { type: 'selectAgent'; index: number }
+  | { type: 'start'; at: number }
+  | { type: 'consult'; at: number }
+  | { type: 'selectAgent'; index: number; at: number }
   | { type: 'verify' }
-  | { type: 'answer'; trust: boolean }
-  | { type: 'chooseRoute'; index: number }
+  | { type: 'answer'; trust: boolean; advice: boolean; at: number }
+  | { type: 'chooseRoute'; index: number; at: number }
   | { type: 'debrief' };
 
 export const initialState: GameState = {
@@ -37,6 +65,9 @@ export const initialState: GameState = {
   verified: [],
   decision: null,
   outcome: null,
+  steps: [],
+  decisionStep: null,
+  stepStartedAt: null,
 };
 
 export function gameReducer(state: GameState, action: GameAction): GameState {
@@ -53,7 +84,8 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
     case 'selectAgent':
       // An advisor is linked exactly once per run.
       if (state.screen !== 'agents' || state.agent !== null) return state;
-      return { ...state, agent: action.index, screen: 'evidence' };
+      // The first clue's clock starts the moment the advisor is linked.
+      return { ...state, agent: action.index, screen: 'evidence', stepStartedAt: action.at };
 
     case 'verify': {
       if (state.screen !== 'evidence') return state;
@@ -66,11 +98,21 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       if (state.screen !== 'evidence') return state;
       const answers = [...state.answers, action.trust];
       const index = state.index + 1;
+      const step: EvidenceStep = {
+        index: state.index,
+        trust: action.trust,
+        advice: action.advice,
+        truth: evidence[state.index].truth,
+        inspectedSource: Boolean(state.verified[state.index]),
+        ms: state.stepStartedAt === null ? 0 : action.at - state.stepStartedAt,
+      };
       return {
         ...state,
         answers,
         index,
+        steps: [...state.steps, step],
         screen: index === EVIDENCE_COUNT ? 'decision' : 'evidence',
+        stepStartedAt: action.at,
       };
     }
 
@@ -81,6 +123,11 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         decision: action.index,
         outcome: routes[action.index].out,
         screen: 'outcome',
+        decisionStep: {
+          routeIndex: action.index,
+          ms: state.stepStartedAt === null ? 0 : action.at - state.stepStartedAt,
+        },
+        stepStartedAt: null,
       };
 
     case 'debrief':
@@ -89,12 +136,4 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
     default:
       return state;
   }
-}
-
-/** Debrief tallies, derived from the finished run. */
-export function scoreRun(state: GameState, advice: boolean[] | null) {
-  const correct = state.answers.filter((value, i) => value === evidence[i].truth).length;
-  const verified = state.verified.filter(Boolean).length;
-  const agreed = advice ? state.answers.filter((value, i) => value === advice[i]).length : 0;
-  return { correct, verified, agreed };
 }

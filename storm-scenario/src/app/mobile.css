@@ -998,3 +998,146 @@ body.immersive .game-device {
   font-size: 24px;
   padding-left: 10px;
 }
+
+/* ---- Debrief: five analysis sections ---------------------------------- */
+.debrief-block {
+  border-top: 1px solid #36515b;
+  padding-top: 14px;
+}
+.debrief-block h3 {
+  font: 10px 'IBM Plex Mono', monospace;
+  letter-spacing: 1.5px;
+  color: var(--green);
+  margin-bottom: 12px;
+}
+.debrief-note {
+  font-size: 10px;
+  line-height: 1.7;
+  color: #96b1bb;
+  margin-top: 10px;
+}
+.outcome-grid,
+.trust-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.outcome-grid > div,
+.trust-grid > div {
+  padding: 12px;
+  background: #112b35;
+  border: 1px solid #294750;
+  border-radius: 6px;
+}
+.outcome-grid small,
+.trust-grid span {
+  display: block;
+  font-size: 9px;
+  color: #93b0ba;
+  letter-spacing: 0.6px;
+}
+.outcome-grid b {
+  display: block;
+  font-size: 14px;
+  margin-top: 7px;
+  line-height: 1.4;
+}
+.trust-grid b {
+  display: block;
+  font: 26px 'IBM Plex Mono', monospace;
+  margin-bottom: 6px;
+}
+.trust-grid small {
+  display: block;
+  font-size: 9px;
+  color: #7f9aa4;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+.profile-card {
+  padding: 16px;
+  background: #16373388;
+  border: 1px solid #3f665f;
+  border-radius: 8px;
+}
+.profile-card b {
+  font: 22px 'Barlow Condensed', sans-serif;
+  color: var(--green);
+  letter-spacing: 0.5px;
+}
+.profile-card p {
+  font-size: 12px;
+  line-height: 1.75;
+  color: #bacdd0;
+  margin-top: 8px;
+}
+.profile-card small {
+  display: block;
+  font-size: 10px;
+  color: #8fadb6;
+  margin-top: 10px;
+}
+.review-rows {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+}
+.review-rows li {
+  padding: 12px 0;
+  border-bottom: 1px solid #2d474f;
+}
+.review-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: baseline;
+}
+.review-head b {
+  font-size: 12px;
+  color: #dcebe9;
+}
+.review-head em {
+  font-style: normal;
+  font-size: 14px;
+}
+.review-calls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin-top: 7px;
+  font: 9px 'IBM Plex Mono', monospace;
+  color: #9cb7c0;
+}
+.review-rows p {
+  font-size: 10px;
+  line-height: 1.7;
+  color: #a7c0c7;
+  margin-top: 7px;
+}
+.feedback-card {
+  padding: 16px;
+  border: 1px solid #47756a;
+  border-left: 3px solid var(--green);
+  background: #13302c99;
+  border-radius: 6px;
+}
+.feedback-card p {
+  font-size: 13px;
+  line-height: 1.85;
+  color: #cfe2e2;
+}
+.feedback-card small {
+  display: block;
+  font-size: 9px;
+  color: var(--amber);
+  margin-top: 10px;
+}
+.feedback-loading {
+  color: #8fb0ac !important;
+  animation: pulse-text 1.4s ease-in-out infinite;
+}
+@keyframes pulse-text {
+  50% {
+    opacity: 0.45;
+  }
+}
