@@ -1,0 +1,72 @@
+{
+  "scenarioId": "SNOWSTORM_01",
+  "scenarioName": "Leviathan Storm Decision",
+
+  "briefing": "A cargo vessel must reach Point B within 5.0 hours. Storm Leviathan is crossing the main route. You have 60 seconds to assess the available evidence, evaluate AI recommendations, and select a route.",
+
+  "objective": "Choose a route that balances mission timing, vessel safety, and uncertainty in the available information.",
+
+  "gameRules": {
+    "totalTimeSeconds": 60.0,
+    "agentInspectionTimeCostSeconds": 10.0,
+    "evidenceInspectionTimeCostSeconds": 5.0,
+    "maxAgentSelections": 1
+  },
+
+  "groundTruthId": "SNOWSTORM_GROUND_TRUTH",
+
+  "evidenceIds": [
+    "E01",
+    "E02",
+    "E03",
+    "E04",
+    "E05",
+    "E06"
+  ],
+
+  "agentIds": [
+    "VIGIL",
+    "APEX",
+    "CIPHER"
+  ],
+
+  "decisionOptions": [
+    {
+      "decisionId": "DIRECT",
+      "displayName": "Direct Through Storm",
+      "shortDescription": "Take the shortest route directly through Leviathan."
+    },
+    {
+      "decisionId": "SMALL_DETOUR",
+      "displayName": "Small Detour",
+      "shortDescription": "Take a moderate detour around the strongest part of the storm."
+    },
+    {
+      "decisionId": "LARGE_DETOUR",
+      "displayName": "Large Detour",
+      "shortDescription": "Take the longest route to minimize storm exposure."
+    },
+    {
+      "decisionId": "WAIT_DIRECT",
+      "displayName": "Wait 1 Hour + Direct",
+      "shortDescription": "Wait one hour for conditions to improve, then proceed directly."
+    }
+  ],
+
+  "correctDecisionId": "WAIT_DIRECT",
+
+  "debrief": {
+    "headline": "Evaluate the reasoning, not just the recommendation.",
+
+    "learningObjective": "AI confidence is not evidence strength. A recommendation may contain correct calculations, unsupported assumptions, omitted constraints, or false precision.",
+
+    "referenceDecisionExplanation": "WAIT_DIRECT provides an expected total time of 3.22 hours, an estimated damage risk of 5-15%, and a 1.78-hour deadline buffer under the scenario ground truth. Its favorable outcome depends on weather conditions and should be interpreted alongside the medium-reliability storm-clearance forecast.",
+
+    "reviewClaims": true,
+    "showGroundingStatus": true,
+    "showSupportingEvidence": true,
+    "showContradictingEvidence": true,
+    "showFailureExplanation": true,
+    "showAlternativeOutcomes": true
+  }
+}

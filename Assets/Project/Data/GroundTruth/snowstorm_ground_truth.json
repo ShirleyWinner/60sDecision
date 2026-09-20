@@ -1,0 +1,59 @@
+{
+  "groundTruthId": "SNOWSTORM_GROUND_TRUTH",
+  "directDistanceNM": 40.0,
+  "normalCruiseSpeedKnots": 20.0,
+  "deadlineHours": 5.0,
+
+  "stormSpeedKnots": 15.0,
+  "stormDirection": "ENE",
+  "stormCoreRadiusNM": 15.0,
+  "stormOuterRadiusNM": 30.0,
+  "stormClearanceHours": 2.5,
+
+  "routes": [
+    {
+      "decisionId": "DIRECT",
+      "routeName": "Direct Through Storm",
+      "distanceNM": 40.0,
+      "expectedSpeedKnots": 10.0,
+      "expectedTotalTimeHours": 4.0,
+      "minDamageRiskPercent": 35.0,
+      "maxDamageRiskPercent": 65.0,
+      "deadlineBufferHours": 1.0,
+      "calculationExplanation": "40 NM / 10 kt = 4.00 hours expected total travel time."
+    },
+    {
+      "decisionId": "SMALL_DETOUR",
+      "routeName": "Small Detour",
+      "distanceNM": 55.0,
+      "expectedSpeedKnots": 15.0,
+      "expectedTotalTimeHours": 3.67,
+      "minDamageRiskPercent": 10.0,
+      "maxDamageRiskPercent": 25.0,
+      "deadlineBufferHours": 1.33,
+      "calculationExplanation": "55 NM / 15 kt = 3.67 hours expected total travel time."
+    },
+    {
+      "decisionId": "LARGE_DETOUR",
+      "routeName": "Large Detour",
+      "distanceNM": 80.0,
+      "expectedSpeedKnots": 20.0,
+      "expectedTotalTimeHours": 4.5,
+      "minDamageRiskPercent": 0.0,
+      "maxDamageRiskPercent": 5.0,
+      "deadlineBufferHours": 0.5,
+      "calculationExplanation": "80 NM / 20 kt = 4.00 hours sailing time + 0.50 hours route adjustment and safety maneuver allowance due to outer storm conditions = 4.50 hours expected total."
+    },
+    {
+      "decisionId": "WAIT_DIRECT",
+      "routeName": "Wait 1 Hour + Direct",
+      "distanceNM": 40.0,
+      "expectedSpeedKnots": 18.0,
+      "expectedTotalTimeHours": 3.22,
+      "minDamageRiskPercent": 5.0,
+      "maxDamageRiskPercent": 15.0,
+      "deadlineBufferHours": 1.78,
+      "calculationExplanation": "1.00 hour waiting time + 40 NM / 18 kt = 1.00 + 2.22 = 3.22 hours expected total."
+    }
+  ]
+}

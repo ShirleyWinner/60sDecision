@@ -32,6 +32,9 @@ public class AgentData : ScriptableObject
     public EvidenceData[] evidenceUsed;
     public EvidenceData[] evidenceMissing;
 
+    [Header("Claims")]
+    public AgentClaim[] claims;
+
     [Header("UI")]
     public Sprite portrait;
 }

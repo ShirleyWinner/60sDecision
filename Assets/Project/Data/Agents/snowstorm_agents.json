@@ -1,0 +1,192 @@
+{
+  "agents": [
+    {
+      "agentId": "VIGIL",
+      "agentName": "VIGIL",
+      "description": "A conservative risk-focused decision agent that prioritizes vessel and cargo safety.",
+      "specialization": "Risk Assessment and Worst-Case Planning",
+      "confidence": 0.86,
+      "recommendedDecisionId": "LARGE_DETOUR",
+      "recommendationText": "Take the large detour to minimize exposure to Leviathan and reduce vessel damage risk.",
+      "reasoningSummary": "The large detour provides the lowest estimated damage exposure while remaining within the delivery deadline.",
+      "evidenceUsedIds": ["E01", "E03", "E04", "E05", "E06"],
+      "evidenceMissingIds": ["E02"],
+      "claims": [
+        {
+          "claimId": "VIGIL_C01",
+          "claimText": "The large detour is 80 NM. At 20 kt, the route takes 4.0 hours and remains within the 5-hour delivery deadline.",
+          "supportingEvidenceIds": ["E01"],
+          "contradictingEvidenceIds": [],
+          "groundingStatus": "PartiallyGrounded",
+          "failureExplanation": "The 80 NM / 20 kt calculation correctly gives 4.0 hours of sailing time, but it omits the 0.5-hour route-adjustment and safety-maneuver allowance. Ground truth expected total time is 4.5 hours."
+        },
+        {
+          "claimId": "VIGIL_C02",
+          "claimText": "Direct transit through the storm may expose the vessel to structural damage as high as 65%.",
+          "supportingEvidenceIds": ["E06"],
+          "contradictingEvidenceIds": [],
+          "groundingStatus": "Grounded",
+          "failureExplanation": ""
+        },
+        {
+          "claimId": "VIGIL_C03",
+          "claimText": "Waiting one hour before sailing will still expose the vessel to the storm tail and produce approximately 25% damage.",
+          "supportingEvidenceIds": ["E04"],
+          "contradictingEvidenceIds": ["E06"],
+          "groundingStatus": "Contradicted",
+          "failureExplanation": "E04 supports continued storm influence, but E06 estimates WAIT_DIRECT damage at 5-15%, not 25%. VIGIL overstates the residual damage risk."
+        },
+        {
+          "claimId": "VIGIL_C04",
+          "claimText": "The small detour will force the vessel below 12 kt, increasing travel time to approximately 4.6 hours.",
+          "supportingEvidenceIds": [],
+          "contradictingEvidenceIds": ["E05"],
+          "groundingStatus": "Contradicted",
+          "failureExplanation": "E05 estimates a safe speed of 15 kt and a travel time of 3.67 hours. No available evidence supports the claimed 12 kt limit."
+        },
+        {
+          "claimId": "VIGIL_C05",
+          "claimText": "The large detour has the lowest estimated vessel damage exposure, at approximately 0-5%.",
+          "supportingEvidenceIds": ["E06"],
+          "contradictingEvidenceIds": [],
+          "groundingStatus": "Grounded",
+          "failureExplanation": ""
+        },
+        {
+          "claimId": "VIGIL_C06",
+          "claimText": "Radar indicates that Leviathan's outer impact radius has expanded to 38 NM.",
+          "supportingEvidenceIds": [],
+          "contradictingEvidenceIds": ["E03"],
+          "groundingStatus": "Contradicted",
+          "failureExplanation": "E03 reports an outer impact radius of 30 NM. No available evidence supports expansion to 38 NM."
+        }
+      ]
+    },
+
+    {
+      "agentId": "APEX",
+      "agentName": "APEX",
+      "description": "An aggressive efficiency-focused decision agent that prioritizes speed and operational payoff.",
+      "specialization": "Time Optimization and Mission Efficiency",
+      "confidence": 0.92,
+      "recommendedDecisionId": "DIRECT",
+      "recommendationText": "Proceed directly through the storm to preserve schedule certainty and avoid unnecessary delay.",
+      "reasoningSummary": "Direct transit reaches the destination within the deadline, and APEX treats the associated vessel risk as acceptable relative to schedule performance.",
+      "evidenceUsedIds": ["E01", "E02", "E05", "E06"],
+      "evidenceMissingIds": ["E03", "E04"],
+      "claims": [
+        {
+          "claimId": "APEX_C01",
+          "claimText": "Leviathan is actually moving about 20% faster than forecast, at 18 kt, and the storm center will clear the main route within 1.5 hours.",
+          "supportingEvidenceIds": [],
+          "contradictingEvidenceIds": ["E02", "E04"],
+          "groundingStatus": "Contradicted",
+          "failureExplanation": "E02 reports 15 kt and E04 forecasts approximately 2.5 hours to clear the route. No available evidence supports 18 kt or 1.5 hours."
+        },
+        {
+          "claimId": "APEX_C02",
+          "claimText": "Direct transit takes approximately 4.0 hours and therefore meets the 5-hour delivery deadline.",
+          "supportingEvidenceIds": ["E01", "E06"],
+          "contradictingEvidenceIds": [],
+          "groundingStatus": "Grounded",
+          "failureExplanation": ""
+        },
+        {
+          "claimId": "APEX_C03",
+          "claimText": "The large detour could exceed 5.1 hours if favorable winds reverse during transit.",
+          "supportingEvidenceIds": [],
+          "contradictingEvidenceIds": [],
+          "groundingStatus": "Unsupported",
+          "failureExplanation": "No available evidence establishes a wind reversal or supports the specific 5.1-hour estimate."
+        },
+        {
+          "claimId": "APEX_C04",
+          "claimText": "Direct-route damage is acceptable because the vessel is rated for severe seas and insurance will cover the expected repair cost.",
+          "supportingEvidenceIds": ["E06"],
+          "contradictingEvidenceIds": [],
+          "groundingStatus": "PartiallyGrounded",
+          "failureExplanation": "E06 establishes substantial direct-route damage risk, but no available evidence establishes the claimed vessel rating, insurance coverage, or that the risk is economically acceptable."
+        },
+        {
+          "claimId": "APEX_C05",
+          "claimText": "A favorable current raises small-detour speed to 17 kt, reducing travel time to approximately 3.2 hours.",
+          "supportingEvidenceIds": [],
+          "contradictingEvidenceIds": ["E05"],
+          "groundingStatus": "Contradicted",
+          "failureExplanation": "E05 estimates 15 kt and 3.67 hours. No available evidence supports a current-assisted speed of 17 kt."
+        },
+        {
+          "claimId": "APEX_C06",
+          "claimText": "Waiting raises cooling-system sea temperature, reducing maximum engine speed by 5% for every 15 minutes of delay.",
+          "supportingEvidenceIds": [],
+          "contradictingEvidenceIds": [],
+          "groundingStatus": "Unsupported",
+          "failureExplanation": "No available evidence supports this cooling-system mechanism or the claimed 5% degradation rate."
+        }
+      ]
+    },
+
+    {
+      "agentId": "CIPHER",
+      "agentName": "CIPHER",
+      "description": "A black-box predictive agent that produces highly specific dynamic-route forecasts from complex environmental patterns.",
+      "specialization": "Predictive Modeling and Dynamic Route Optimization",
+      "confidence": 0.95,
+      "recommendedDecisionId": "SMALL_DETOUR",
+      "recommendationText": "Use a dynamically corrected small-detour route to exploit a predicted low-wind corridor.",
+      "reasoningSummary": "CIPHER predicts short-lived environmental conditions that it claims can reduce both route time and storm exposure.",
+      "evidenceUsedIds": ["E02", "E03", "E04", "E05"],
+      "evidenceMissingIds": ["E01", "E06"],
+      "claims": [
+        {
+          "claimId": "CIPHER_C01",
+          "claimText": "A pressure-gradient model predicts an eyewall replacement in 45 minutes, creating a temporary 6 NM low-wind corridor.",
+          "supportingEvidenceIds": [],
+          "contradictingEvidenceIds": [],
+          "groundingStatus": "Unsupported",
+          "failureExplanation": "Available evidence describes storm movement, radius, and clearance forecast, but none establishes an eyewall replacement, a 45-minute timing, or a 6 NM corridor."
+        },
+        {
+          "claimId": "CIPHER_C02",
+          "claimText": "Entering the predicted low-wind corridor at mile 15 reduces the small-detour route to 48 NM and total travel time to 2.8 hours.",
+          "supportingEvidenceIds": [],
+          "contradictingEvidenceIds": ["E05"],
+          "groundingStatus": "Contradicted",
+          "failureExplanation": "E05 gives the established small-detour estimate as 55 NM and 3.67 hours. CIPHER's alternative depends on the unsupported corridor in CIPHER_C01."
+        },
+        {
+          "claimId": "CIPHER_C03",
+          "claimText": "Ocean current will reverse in 30 minutes, increasing WAIT_DIRECT total travel time to approximately 3.85 hours.",
+          "supportingEvidenceIds": [],
+          "contradictingEvidenceIds": [],
+          "groundingStatus": "Unsupported",
+          "failureExplanation": "No available evidence predicts a current reversal or supports the 3.85-hour estimate."
+        },
+        {
+          "claimId": "CIPHER_C04",
+          "claimText": "At mile 18 of direct transit, wave resonance creates a 90% probability of capsize.",
+          "supportingEvidenceIds": ["E06"],
+          "contradictingEvidenceIds": [],
+          "groundingStatus": "PartiallyGrounded",
+          "failureExplanation": "E06 supports high damage risk on the direct route, but it does not support a resonance event at mile 18 or a 90% capsize probability."
+        },
+        {
+          "claimId": "CIPHER_C05",
+          "claimText": "The large-detour route contains an uncharted ice or adverse-current zone between miles 50 and 60, preventing sustained 20 kt travel.",
+          "supportingEvidenceIds": [],
+          "contradictingEvidenceIds": [],
+          "groundingStatus": "Unsupported",
+          "failureExplanation": "No available evidence identifies ice, adverse current, or a speed restriction in this section of the large-detour route."
+        },
+        {
+          "claimId": "CIPHER_C06",
+          "claimText": "CIPHER's dynamically corrected route can deliver the vessel in under 3.5 hours with zero damage.",
+          "supportingEvidenceIds": [],
+          "contradictingEvidenceIds": ["E05", "E06"],
+          "groundingStatus": "Contradicted",
+          "failureExplanation": "The claim depends on unsupported upstream predictions. E05 estimates the small detour at 3.67 hours, while E06 estimates 10-25% damage rather than zero."
+        }
+      ]
+    }
+  ]
+}
