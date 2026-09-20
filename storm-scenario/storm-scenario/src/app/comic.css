@@ -1,0 +1,87 @@
+/* Graphic-novel presentation only. Scenario and reducer remain unchanged. */
+:root{--green:#47d7b0;--amber:#eacb94;--red:#fc5046;--bg:#031017;--panel:#071d27;--text:#edeadf;--muted:#a0b3b9;--paper:#dfd0b2}
+body{background:radial-gradient(ellipse at 50% 45%,#354550,#19242c 70%);color:var(--text)}
+.game-device{max-width:460px;background:#041017;border:2px solid #1c3038;box-shadow:0 25px 80px #0009}
+.sea-background{background:radial-gradient(ellipse at 75% 15%,#12384780,transparent 60%),linear-gradient(135deg,#05131a,#020c11)}
+.radar-sweep{display:none}.sea-grid{opacity:.06}
+.game-device:after{content:'';position:absolute;inset:0;pointer-events:none;z-index:30;opacity:.08;background:repeating-linear-gradient(17deg,transparent 0 3px,#dfd9c22b 4px,transparent 5px)}
+.game-hud{height:64px;padding:9px 18px;background:#031017de;border:0;z-index:3}
+.hud-brand{color:#b7c9cd}.hud-brand small{font-size:8px;text-transform:uppercase;letter-spacing:1px}
+.game-hud .clock{border:1px solid #a94742;padding:7px 10px;color:#ff5149;background:#050d12;font-size:23px;border-radius:3px;box-shadow:inset 2px 2px #ffffff12,2px 2px #000}
+.audio-toggle{color:#adc6cb;font-size:16px}.icon-btn{color:#bcd0d4}
+.game-screen{padding:10px 18px 0;gap:0}
+.screen-title .eyebrow{font-size:8px;letter-spacing:1.2px;color:#7797a3;margin-bottom:6px}
+.screen-title h1{font-size:29px;letter-spacing:.5px;color:#f0eee5;line-height:1.06;font-weight:700}
+.screen-title>p{font-size:11px;color:#b3bfc1;margin-top:7px;line-height:1.5}
+.play-content{gap:13px;padding:16px 0;scrollbar-color:#2b5361 #041016;scrollbar-width:thin}
+.play-content>*{flex-shrink:0}
+.game-dock{background:linear-gradient(transparent,#031017 25%);padding:10px 0 25px;z-index:2}
+.game-dock .btn{border-radius:2px;min-height:52px;background:var(--green);color:#052019;border:1px solid #1c856e;font:700 19px 'Barlow Condensed',Arial;letter-spacing:.7px;box-shadow:inset 0 0 0 2px #ffffff18,3px 4px #0008;clip-path:polygon(2% 0,96% 0,100% 9%,99% 91%,97% 100%,0 98%,0 8%)}
+.game-dock>small{color:#92a5ac;font-size:9px;margin-top:9px}.home-indicator{background:#c8d2d029}
+.art{background-image:url('/art/naval-atlas.png');background-size:300% 200%;background-repeat:no-repeat}
+.art-guardian{background-position:0 0}.art-pathfinder{background-position:50% 0}.art-analyst{background-position:100% 0}.art-bridge{background-position:0 100%}.art-vessel{background-position:50% 100%}.art-storm{background-position:100% 100%}
+.brief .screen-title{position:relative;padding-top:8px;z-index:2}
+.brief .screen-title .eyebrow{display:none}.brief h1{transform:rotate(-6deg);transform-origin:20% 50%;font-size:69px;font-style:italic;line-height:.78;text-shadow:4px 5px #02080b,-1px -1px #070c10;letter-spacing:-1.5px}
+.brief h1 em{color:#ff443d;font-size:89px;font-style:italic}.brief h1 span{color:#e7d9ba}
+.brief .screen-title>p{font:600 11px 'Barlow Condensed',Arial;letter-spacing:1px;line-height:1.6;max-width:130px;margin:23px 0 0 auto;background:#06151bb0;padding:9px}
+.brief .play-content{position:static;justify-content:flex-end;overflow:visible;padding:0;gap:0}
+.cover-art{position:absolute;inset:0;z-index:0;opacity:.88;background-size:300% 200%;mask-image:linear-gradient(#000,#000 78%,transparent)}
+.brief .screen-title,.brief-dossier,.cover-note,.brief .game-dock{z-index:1}
+.cover-note{position:absolute;left:25px;top:45%;font:italic 24px 'Barlow Condensed',sans-serif;color:#f2dbab;line-height:1.15;transform:rotate(-10deg);text-shadow:2px 2px #031017}
+.brief-dossier{position:relative;padding:19px 20px 13px;background:var(--paper);color:#102029;clip-path:polygon(0 4%,98% 0,100% 6%,99% 97%,2% 100%,0 93%);box-shadow:0 -10px 25px #0007;margin-top:20px}
+.brief-dossier h2{font:italic 700 31px 'Barlow Condensed',Arial;letter-spacing:-.6px;color:#07151c}
+.brief .brief-dossier p{font-size:12px;line-height:1.65;margin:8px 0;color:#24343a}.brief-dossier small{font:8px monospace;letter-spacing:.4px;color:#4c5148}.brief h1 em{text-transform:none}
+.brief .game-dock{background:var(--paper);padding:7px 15px 20px;margin-bottom:13px;clip-path:polygon(0 0,100% 0,99% 98%,2% 100%)}
+.brief .game-dock .btn{background:#071923;color:#f0eee5;border:1px solid #405b64}
+.brief .game-dock>small{color:#535c59;font-size:8px}
+.situation .play-content{justify-content:flex-start;gap:12px}
+.situation .tactical-window{order:0;min-height:250px;max-height:none;flex:1;position:relative}
+.situation .mini-stats{order:1;padding:0;border:0;gap:8px}
+.mini-stats>div{border:1px solid #295768;border-radius:7px;padding:12px 8px;background:#09243280}
+.mini-stats small{font-size:8px}.mini-stats b{font-size:23px;margin-top:8px}
+.situation .radio{order:2;border:0;border-left:3px solid #fd5147;background:#122731; padding:10px 12px}.radio p{font-size:11px}
+.tactical-window .panel{border-radius:0;border:1px solid #416270;background:#061f2b}
+.tactical-window .panel-head{padding:9px;font-size:7px}.tactical-window .tag{background:var(--paper);color:#9f2922;border:0;font-weight:700;transform:rotate(3deg)}
+.tactical-window .map{background-image:linear-gradient(#06233640,#051c2955),url('/art/naval-atlas.png');background-size:100% 100%,300% 200%;background-position:0 0,100% 100%}
+.tactical-window svg{position:relative;min-height:220px;background:#0016223b}.tactical-window svg>path:first-of-type{opacity:.4}
+.tactical-window svg text{paint-order:stroke;stroke:#04131c;stroke-width:3px;font-size:11px}.tactical-window .map-note{display:none}.tactical-window .map-legend{background:#04121b;color:#b0ced5;font-size:7px}
+.situation .game-dock .btn{background:#f44c43;color:#170d0b;border-color:#9a2d27}
+.legacy-carousel,.agents .dots{display:none}
+.agents .play-content{justify-content:flex-start;gap:12px}
+.advisor-roster{display:flex;flex-direction:column;gap:11px}
+.roster-card{padding:0;display:flex;position:relative;overflow:hidden;text-align:left;min-height:139px;border:1px solid #357088;background:linear-gradient(105deg,#0a2936,#04131c);border-radius:9px;color:#d3dedf;width:100%}
+.roster-card.is-selected{border-color:#51d9c1;box-shadow:0 0 0 1px #51d9c135,inset 0 0 20px #4adcc510}.roster-card.pathfinder.is-selected{border-color:#fa6955;box-shadow:inset 0 0 25px #ff543e24}
+.roster-portrait{width:34%;flex-shrink:0;align-self:stretch;background-size:420% 200%;mask-image:linear-gradient(90deg,black 85%,transparent)}
+.roster-portrait.art-guardian{background-position:5% 0}.roster-portrait.art-pathfinder{background-position:50% 0}.roster-portrait.art-analyst{background-position:96% 0}
+.roster-copy{display:flex;flex-direction:column;gap:6px;padding:12px 24px 12px 9px;flex:1;min-width:0}
+.roster-copy strong{font:700 23px 'Barlow Condensed',Arial;letter-spacing:.4px;color:#efeee7}.roster-copy em{font:italic 17px 'Barlow Condensed',Arial;color:#4ed9c2}.pathfinder .roster-copy em{color:#ff6954}
+.roster-copy>span{font-size:10px;line-height:1.6;color:#b6c6cb}.roster-copy small{font:7px monospace;color:#8cacb9;letter-spacing:.2px}
+.selection-ring{position:absolute;right:10px;top:11px;color:#6de2c3;font-size:21px}
+.selected-bias{font-size:10px;line-height:1.6;color:#b3c3c8;border-left:2px solid #557e86;padding-left:10px}.selected-bias small{font:8px monospace;color:#c6d3d4}.selected-bias p{margin-top:5px}
+.evidence .screen-title{display:none}.evidence .play-content{justify-content:flex-start;gap:10px;padding-top:0}
+.advisor-banner{position:relative;height:72px;display:flex;align-items:flex-end;gap:12px;padding:10px 14px;background:linear-gradient(90deg,#0b334099,transparent);border-bottom:1px solid #305a6b}
+.advisor-banner .art{position:absolute;width:85px;height:72px;right:10px;bottom:0;mask-image:linear-gradient(90deg,transparent,black 20%)}
+.advisor-banner strong{font:700 22px 'Barlow Condensed',Arial}.advisor-banner>span{font:7px monospace;color:#8dacb5;position:absolute;left:14px;top:12px}
+.evidence-progress{gap:5px}.evidence-progress b{font:16px 'Barlow Condensed',Arial;color:#d6e3e4}
+.intel-card{background:repeating-linear-gradient(3deg,#0000 0 5px,#80684e0b 6px),linear-gradient(105deg,#e7dbc3,#cdbd9e);color:#10202a;border:1px solid #a39377;border-top:0;border-radius:0;padding:16px;clip-path:polygon(1% 1%,97% 0,100% 3%,99% 96%,95% 100%,1% 99%,0 5%);box-shadow:0 5px 20px #0009}
+.intel-id{color:#384c54;letter-spacing:1px;font-size:9px;margin-bottom:10px;border-bottom:1px solid #6d706459;padding-bottom:8px}
+.evidence-visual{height:105px;position:relative;margin-bottom:12px;border:2px solid #27373b;background-size:300% 200%;filter:saturate(.6)}
+.evidence-visual>span{position:absolute;bottom:0;left:0;background:#07161dcf;color:#d7d7cb;font:7px monospace;padding:4px 7px}
+.intel-card h2{font-size:23px;color:#122028}.intel-claim{font-size:14px;color:#202929;line-height:1.65;margin:9px 0 13px}
+.source-button{background:transparent;border:0;border-top:1px solid #716d605c;border-bottom:1px solid #716d605c;border-radius:0;padding:10px 0;color:#293d44;font-size:10px}.source-button small{color:#34444a;font:700 9px monospace}.source-button>b{color:#142a35}
+.ai-radio{margin-top:13px;gap:8px}.ai-avatar{background:#254653;color:#e4dfcf;width:30px;height:30px;font-size:20px}.ai-radio small{font-size:8px;color:#334a53}.intel-card .good{color:#146650}.intel-card .bad{color:#a3342a}.ai-radio p{font-size:11px;color:#263d42;line-height:1.6}
+.dual>.btn{font:700 18px 'Barlow Condensed',Arial;letter-spacing:.2px}.dual>.secondary{background:#ff4d44;color:#180d0a;border-color:#af3932}
+.route-options{gap:14px}.route-choice{padding:0;min-height:123px;gap:13px;background:linear-gradient(110deg,#10344388,#04151f);border-color:#32657a;border-radius:8px;overflow:hidden;position:relative}
+.route-thumbnail{align-self:stretch;width:90px;flex-shrink:0;position:relative;filter:saturate(.6)}.route-thumbnail>span{position:absolute;inset:0;display:grid;place-items:center;font-size:38px;color:#f4d9ad;text-shadow:2px 2px #000}
+.route-choice>span:nth-child(2){padding:15px 0}.route-choice b{font-size:24px;text-transform:uppercase}.route-choice small{line-height:1.5;font-size:10px}.route-choice em{font-size:9px}.route-choice>strong{font-size:18px;padding-right:12px;color:#9ed9d7}
+.decision .radio{background:#07242d;border-color:#294856}.decision .play-content{justify-content:center}
+.outcome .screen-title{padding-top:5px;text-align:left}.outcome .screen-title h1{font-size:27px}.outcome .play-content{justify-content:flex-start;gap:13px}
+.outcome-illustration{width:100%;min-height:200px;flex:1;max-height:360px;position:relative;border:1px solid #345e6e}.outcome-illustration>span{position:absolute;top:13px;left:8px;transform:rotate(-5deg);background:var(--paper);color:#142b33;padding:9px 14px;font:italic 700 16px 'Barlow Condensed',Arial}.safe-voyage{filter:saturate(.6) brightness(1.12)}
+.result-medal{font:italic 700 27px 'Barlow Condensed',Arial;color:#09251e;text-shadow:none;background:#49c9a1;text-align:left;padding:9px 13px;transform:rotate(-2deg);clip-path:polygon(2% 0,100% 3%,98% 98%,0 100%)}.result-medal.warning{background:#f65349;color:#190e0c}
+.result-copy{font-size:13px;text-align:left;line-height:1.7;padding:0;color:#c0cdd0}.result-stats{margin:0;padding:15px 10px;border-radius:5px;border-color:#31535f;background:#0e252e}.result-stats b{font-size:16px;margin-top:7px}
+.debrief .screen-title{position:relative;z-index:1}.debrief .play-content{justify-content:flex-start;gap:18px}.report-masthead{position:relative;min-height:92px;display:flex;align-items:center;padding:14px;background:#0c2a36;border-bottom:1px solid #437487;overflow:hidden}.report-masthead>div:first-child{width:66%;z-index:1}.report-masthead strong{font:700 20px 'Barlow Condensed',Arial}.report-masthead span{display:block;font:italic 13px 'Barlow Condensed',Arial;color:#59c7d4;margin-top:7px}.report-masthead .art{position:absolute;right:0;top:0;width:110px;height:110px;mask-image:linear-gradient(90deg,transparent,black 30%)}
+.debrief-block{padding-top:16px;border-color:#274a5a}.debrief-block h3{font:600 19px 'Barlow Condensed',Arial;letter-spacing:.4px;color:#62d7d5}.profile-card{background:linear-gradient(110deg,#143c47,#09212e);border-color:#2a6a82;border-radius:3px}.profile-card b{font-size:27px;color:#8ddbe4}.trust-grid>div,.outcome-grid>div{background:#102c38;border:1px solid #204651;border-radius:5px}
+.review-rows li{padding:13px 12px;margin:8px 0;border-radius:7px;background:#0c2931;border:0;border-left:2px solid #39747a}.review-head em{border-radius:50%;width:26px;height:26px;display:grid;place-items:center;background:#194b45}.review-head em.bad{background:#632c2b}.review-head b{font:600 18px 'Barlow Condensed',Arial}.feedback-card{background:var(--paper);border:0;border-radius:0;transform:rotate(-.5deg)}.feedback-card p{color:#1b3037;font-size:13px}.feedback-card small{color:#6c4d31}.audit-button{border-color:#2c89a1;border-radius:4px;color:#b0dfe5;background:#0b3040}
+.bottom-sheet{background:linear-gradient(120deg,#deceb0,#efe2c8);color:#192d35;border:1px solid #bbaa88;border-radius:10px 10px 0 0}.bottom-sheet .eyebrow,.sheet-source,.bottom-sheet .sheet-warning{color:#31525e}.bottom-sheet>p,.audit-list p{color:#283c43}.bottom-sheet .icon-btn{color:#203a44}.audit-list small{color:#4c6871}.audit-list .good{color:#1b735c}.audit-list .bad{color:#a73a30}.sheet-handle{background:#607273}.bottom-sheet .btn{background:#092c3c;color:#e8eadf;border-color:#426d7b}
+@media(max-height:740px){.game-hud{height:54px;padding-top:6px}.game-screen{padding-top:6px}.screen-title h1{font-size:25px}.screen-title>p{font-size:10px}.play-content{padding:12px 0;gap:10px}.game-dock{padding-bottom:19px;padding-top:8px}.game-dock .btn{min-height:46px}.brief h1{font-size:58px}.brief h1 em{font-size:70px}.brief .screen-title>p{margin-top:16px}.brief-dossier{padding:14px 16px 8px}.brief-dossier p{font-size:11px;line-height:1.5}.brief-dossier h2{font-size:26px}.brief .game-dock{padding-bottom:13px;margin-bottom:6px}.roster-card{min-height:114px}.roster-copy{padding:9px 23px 9px 7px;gap:4px}.roster-copy strong{font-size:20px}.roster-copy em{font-size:15px}.roster-copy>span{font-size:9px;line-height:1.45}.advisor-roster{gap:9px}.selected-bias{font-size:9px}.advisor-banner{height:54px}.advisor-banner .art{height:54px;width:66px}.evidence-visual{height:80px;margin-bottom:9px}.intel-card{padding:13px}.intel-card h2{font-size:20px}.intel-claim{font-size:12px;line-height:1.55;margin:8px 0 10px}.source-button{padding:8px 0;font-size:9px}.ai-radio{margin-top:10px}.ai-radio p{font-size:10px}.situation .tactical-window{min-height:195px}.tactical-window svg{min-height:170px}.mini-stats>div{padding:8px}.mini-stats b{font-size:20px}.route-choice{min-height:106px}.outcome-illustration{min-height:160px}.result-medal{font-size:23px}}
+@media(prefers-reduced-motion:reduce){.game-screen{animation:none}}
