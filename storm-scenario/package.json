@@ -1,0 +1,29 @@
+{
+  "name": "storm-corridor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "60s Decisions \u2014 Storm Corridor: a naval decision simulation about calibrating trust in AI advice.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && rm -rf dist && cp -r out dist",
+    "start": "next start",
+    "serve": "npx --yes serve dist -l 8765",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "^15.5.4",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.7",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.1.1",
+    "@types/react-dom": "^19.1.1",
+    "eslint": "^9.17.0",
+    "eslint-config-next": "^15.5.4",
+    "prettier": "^3.9.8",
+    "typescript": "^5.7.2"
+  }
+}

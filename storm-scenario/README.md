@@ -1,47 +1,141 @@
 # 60s Decisions — Storm Corridor
 
-纯 HTML/CSS/JavaScript 可交互关卡原型，无 LLM、无后端、无安装依赖。
+An interactive level prototype about **calibrating trust in AI advice**. You command the MV MERIDIAN,
+link one of three AI advisors, judge six pieces of intelligence as reliable or not, and issue a final
+routing order. No LLM is involved — every advisor and clue is fixed, scripted data.
 
-## 运行
+Built with **Next.js (App Router) + React + TypeScript**, exported as a fully static site.
 
-在本目录运行：
+## Requirements
 
-```sh
+- Node.js 18.18+ (developed on Node 26)
+- npm
+
+## Quick start
+
+```bash
+npm install
+```
+
+Development server with hot reload:
+
+```bash
+npm run dev
+```
+
+Open http://localhost:3000 .
+
+## Build
+
+```bash
+npm run build
+```
+
+`next build` writes the static export to `out/`, and the build script copies it to **`dist/`**.
+`dist/` is generated output — never edit it by hand; change `src/` and rebuild.
+
+Preview the built site with any static file server:
+
+```bash
+npm run serve
+```
+
+That serves `dist/` on http://localhost:8765 . Any equivalent server works, for example:
+
+```bash
 python3 -m http.server 8765 --bind 127.0.0.1 --directory dist
 ```
 
-浏览器打开 http://127.0.0.1:8765 。也可以直接打开 dist/index.html。字体使用 Google Fonts，离线时自动使用系统字体，不影响交互。
+Because the export uses absolute asset paths (`/_next/...`), serve `dist/` as the server **root**;
+opening `dist/index.html` directly from the filesystem will not load styles or scripts.
 
-## 规则
+## Scripts
 
-- 倒计时当前已关闭，所有阶段均没有时间限制。
-- Situation → 选择唯一 AI 顾问；当前不扣除时间。
-- 六份固定证据，三位顾问各有不同建议；每条必须 TRUST / DON'T TRUST 后才能继续。
-- 查看来源会被记录，不额外扣秒，正常计时继续。
-- 六条完成后才能下达最终路线指令。
-- Minor Detour：安全、准时；Major Detour：安全、晚 25 分钟；Wait 1 hour：遭遇风暴。Timeout 结局暂不可触发。
-- 复盘分别计算证据正确率、与 AI 一致次数和来源查看次数；时间管理评分暂时关闭。
-- 判断不改变场景事实；超时保留已完成的判断，未判断项单独显示。Replay 完整重置。
+| Script              | What it does                                       |
+| ------------------- | -------------------------------------------------- |
+| `npm run dev`       | Next dev server on port 3000                        |
+| `npm run build`     | Static export to `out/`, copied to `dist/`          |
+| `npm run serve`     | Serve the built `dist/` on port 8765                |
+| `npm run lint`      | ESLint (flat config, `next/core-web-vitals`)        |
+| `npm run typecheck` | `tsc --noEmit`                                      |
 
-## 文件与 Unity 对应
+## Project layout
 
-- dist/index.html：入口
-- dist/style.css：主题、响应式布局、警告与过渡
-- dist/app.js：agents / evidence / routes 固定数据、状态机、全部七个 Screen
-- card / evidence-main 可对应 AgentCard / EvidenceCard / DecisionCard prefab。
+```
+src/
+  app/
+    layout.tsx        Document shell, metadata, viewport, global CSS imports
+    page.tsx          Mounts the game into #app
+    style.css         Base theme: colors, typography, panels, desktop layout
+    mobile.css        Portrait "handheld" shell: HUD, radar background, sheets
+  components/
+    Game.tsx          State wiring, audio cues, sheets, fullscreen, keyboard
+    GameHud.tsx       Top bar: stage name, disabled clock, MUSIC/SFX/immersive
+    ScreenFrame.tsx   Shared title / content / dock layout + DockButton
+    TacticalMap.tsx   Tactical plot SVG
+    screens/          One component per phase (brief … debrief)
+    sheets/           Source record and evidence review bottom sheets
+  data/
+    agents.ts         The three advisors, their bias and per-clue advice
+    evidence.ts       Six clues: claim, source, full record, ground truth
+    routes.ts         Three final routes and the outcome each leads to
+    outcomes.ts       Ending copy and stage names
+    types.ts          Shared types
+  lib/
+    gameState.ts      Reducer for the phase machine + debrief scoring
+    audio.ts          Procedural Web Audio score and UI cues
+    useGameAudio.ts   React hook owning one audio engine
+    modelContext.ts   Optional read-only `read_operation_status` browser tool
+```
 
-模拟数据仅用于游戏。页面不保存玩家数据，刷新即重置。
+All game content lives in `src/data/`, so the scenario can be retuned without touching components.
 
-## 手游交互版
+## Rules
 
-当前入口默认显示竖屏手游界面：固定 HUD 与底部操作区、雷达动态背景、左右切换或滑动的顾问卡片、逐张证据、底部来源面板、结算与复盘。
+- The countdown is currently **disabled**; no phase has a time limit.
+- Situation → link exactly one AI advisor. Advisors are locked in for the run.
+- Six fixed clues; each advisor gives different per-clue advice. Every clue must be judged
+  TRUST or DON'T TRUST before the next one appears.
+- Inspecting a source is recorded and costs nothing.
+- The final routing order unlocks only after all six judgments.
+- **Minor Detour**: safe, on time. **Major Detour**: safe, 25 minutes late. **Wait 1 hour**: caught
+  in the storm. The Timeout ending exists in the data but is unreachable while the timer is off.
+- The debrief scores correct judgments, agreement with the AI, and source checks. Time management
+  scoring is off while the timer is disabled.
+- Judgments never change the scenario facts. "Play again" resets the run completely.
 
-新增文件：`dist/mobile.js`（手游界面与交互）、`dist/mobile.css`（竖屏视觉）。原 `app.js` 保留固定数据和关卡状态机。
+## Interface
 
-右上角提供音效开关和全屏按钮。音效默认关闭，开启后使用本地合成音。全屏能力取决于浏览器支持；原型仍由浏览器承载，不是原生 App 安装包。桌面显示竖屏游戏画面；375×667 与 390×844 尺寸已检查，主要操作无需滚动页面。完整证据复盘在独立面板内滚动。
+Portrait, handheld-style layout: fixed HUD, bottom action dock, animated radar background,
+an advisor carousel (arrows, dots or swipe), one clue at a time, bottom sheets for source records
+and the evidence review, then outcome and debrief.
+
+Checked at 375×667 and 390×844; the main actions never require scrolling the page. The full evidence
+review scrolls inside its own sheet. The top-right `⛶` button toggles an immersive mode that requests
+fullscreen where the browser allows it — this is still a web page, not a native app package.
+
+Fonts come from Google Fonts and fall back to system fonts offline, which does not affect gameplay.
+The page stores no player data; a refresh resets the run.
 
 ## Background music and sound effects
 
-`dist/audio.js` creates an original procedural soundtrack locally with Web Audio: slow harmonic pads, sonar-like notes and bass pulses. The last 10 seconds add warning cues and a faster pulse. Advisor linking, source inspection, trust/reject judgments and each outcome have distinct effects. No audio downloads or third-party music are required.
+`src/lib/audio.ts` generates an original soundtrack locally with the Web Audio API: slow harmonic
+pads, sonar-like notes and bass pulses in a D minor / B-flat / F / C progression. Advisor linking,
+source inspection, trust/reject judgments and each ending have distinct cues. Nothing is downloaded
+and no third-party music is used.
 
-Music and SFX default to enabled but start only after a user gesture. Use the separate MUSIC and SFX controls in the top bar to mute either channel. Audio pauses while the page is hidden; the game timer continues. This replaces the earlier single sound toggle and its default-off behavior.
+Music and SFX default to enabled but can only start after a user gesture, per browser autoplay
+rules. The separate **MUSIC** and **SFX** controls in the top bar mute each channel independently.
+Audio suspends while the page is hidden.
+
+The engine still supports countdown urgency (`setCountdown`) — faster pulses plus warning and
+critical cues under 10 seconds. Nothing calls it while the timer is disabled.
+
+## Assistant integration
+
+When the browser exposes `document.modelContext`, the page registers one **read-only** tool,
+`read_operation_status`, reporting the current phase, linked advisor, completed judgments and
+outcome. It accepts no parameters and cannot change the game. Browsers without that API are
+unaffected.
+
+Simulated data, for the game only. Not for navigation.
