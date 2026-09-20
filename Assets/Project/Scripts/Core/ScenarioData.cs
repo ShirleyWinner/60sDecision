@@ -25,6 +25,9 @@ public class ScenarioData : ScriptableObject
     [Header("Game Rules")]
     public float totalTimeSeconds = 60f;
 
+    [Header("Ground Truth")]
+    public GroundTruthData groundTruth;
+
     [Header("Content")]
     public AgentData[] availableAgents;
     public EvidenceData[] evidence;
